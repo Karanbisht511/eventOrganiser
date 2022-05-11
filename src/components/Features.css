@@ -1,0 +1,12 @@
+@media screen and (min-width: 768px) {
+
+.feature-wrapper{
+    margin: 100px;
+}
+
+.feature-container{
+    flex-wrap: wrap;
+    width: 80vw;
+    margin: auto ;
+}
+}
