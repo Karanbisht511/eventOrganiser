@@ -11,6 +11,7 @@ import PhotoVideoPortalHome from "./photographer/videographer/photo/PhotoVideoHo
 import DecoratorHome from "./decorator/DecoratorHome";
 import Explore from "./explore/Explore";
 import Dashboard from "./dashboard/Dashboard";
+import UserHome from "./userHome/UserHome";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function Home() {
@@ -42,7 +43,7 @@ function Home() {
 
           <Routes>
             <Route path="/" element={<HomePart />} />
-            {/* <Route path="/loggedIn" element={<HomePart />} /> */}
+            <Route path="/loggedIn/:id" element={<UserHome />} />
             <Route path="/dashboard/:id" element={<Dashboard />} />
             <Route path="/invitationTemplates" element={<InvitationHome />} />
             <Route path="/weddingResorts" element={<WeddingResort />} />

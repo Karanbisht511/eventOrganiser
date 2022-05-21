@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 
-export default function Nav({ handleLoginClick, navs }) {
+export default function Nav() {
   const addActiveLinkClass = (e) => {
     const nav = document.querySelector(".nav");
     const links = nav.childNodes;
@@ -15,62 +15,34 @@ export default function Nav({ handleLoginClick, navs }) {
     currentLink.classList.add("active-link");
   };
 
-  // const handleClick = () => {
-  //   console.log("clicked");
-  //   handleLoginClick();
-  // };
-
   return (
     <nav className="nav flex-container header-element">
-      {/* {navs.map((element) => {
-        return (
-          <Link
-            to={element.link}
-            id="Home-link"
-            className="nav-element active-link"
-            onClick={addActiveLinkClass}
-          >
-            {element.name}
-          </Link>
-        );
-      })} */}
       <Link
         to="/"
-        // href="#Home"
         id="Home-link"
         className="nav-element active-link"
         onClick={addActiveLinkClass}
       >
         Home
       </Link>
-      <a
-        href="#Features"
-        id="Feature-link"
-        className="nav-element"
-        onClick={addActiveLinkClass}
-      >
-        Features
-      </a>
       <Link
-        to="/explore"
+        to="/dashboard"
         // href="#Explore"
-        id="Explore-link"
+        id="dashboard-link"
         className="nav-element"
         onClick={addActiveLinkClass}
       >
-        Explore
+        Dashboard
       </Link>
-      <a
-        href="#AboutUs"
-        id="AboutUs-link"
+      <Link
+        to="/logout"
+        // href="#Explore"
+        id="logout-link"
         className="nav-element"
         onClick={addActiveLinkClass}
       >
-        About Us
-      </a>
-      <div id="Login-link" className="nav-element" onClick={handleLoginClick}>
-        Log-In
-      </div>
+        Logout
+      </Link>
     </nav>
   );
 }

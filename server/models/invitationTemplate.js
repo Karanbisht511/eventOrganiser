@@ -8,4 +8,4 @@ const template = new Schema({
   price: { type: Number, required: true },
 });
 
-module.exports = mongoose.model("template", userSchema);
+module.exports = mongoose.model("template", template);

@@ -22,6 +22,7 @@ export default function LoginForm({
       },
     })
       .then((response) => {
+        console.log(response);
         // console.log("response:", response);
         return response.data;
       })
@@ -37,7 +38,7 @@ export default function LoginForm({
 
   const handleSubmitButton = (id) => {
     handleLoginClick();
-    navigate(`/dashboard/${id}`);
+    navigate(`/loggedIn/${id}`);
     // console.log("userInfo:", userInfo);
   };
 

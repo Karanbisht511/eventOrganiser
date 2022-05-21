@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const travelAgency = new Schema({
   name: { type: String, required: true },
-  mobile: { type: Number, min: 10, max: 10, required: true },
-  pincode: { type: Number, min: 6, max: 6, required: true },
+  mobile: { type: Number, minLength: 10, maxLength: 10, required: true },
+  pincode: { type: Number, minLength: 6, maxLength: 6, required: true },
   address: { type: String, required: true },
 });
 
-module.exports = mongoose.model("travelAgency", userSchema);
+module.exports = mongoose.model("travelAgency", travelAgency);
