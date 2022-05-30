@@ -5,6 +5,7 @@ export default function HomePart() {
   return (
     <>
       <Welcome />
+      <p>{sessionStorage.getItem("userInformation")}</p>
       <Features />
     </>
   );

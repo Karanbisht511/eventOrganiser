@@ -1,41 +1,37 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-  const [userInformation, setUserInformation] = useState(false);
-  const { id } = useParams();
-  console.log("id:", id);
-
-  const getData = async () => {
-    const receivedData = await Axios.get("http://localhost:4000/getUserInfo/", {
-      params: { userId: id },
-    })
-      .then((response) => {
-        console.log("response:", response);
-        return response.data;
-      })
-      .catch((error) => {
-        console.log("error:", error);
-      });
-    await setUserInformation(receivedData);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
+  console.log(sessionStorage.getItem("userInformation"));
+  const userInformation = JSON.parse(sessionStorage.getItem("userInformation"));
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Dashboard</h1>
+      <h1 style={{ textAlign: "center" }}>DASHBOARD</h1>
       <div>
-        {console.log(userInformation)}
-        {userInformation && (
-          <h1>
-            Name:{userInformation.first_name + " " + userInformation.last_name}
-          </h1>
-        )}
+        <h1>User Information</h1>
+        <p>
+          <span>Name:</span>
+          {userInformation.firstName} {userInformation.lastName}
+        </p>
+        <p>
+          <span>Mobile:</span>
+          {userInformation.mobile}
+        </p>
+        <p>
+          <span>Email:</span>
+          {userInformation.email}
+        </p>
+        <p>
+          <span>Address:</span>
+          {userInformation.address}
+        </p>
+        <p>
+          <span>Pincode:</span>
+          {userInformation.pincode}
+        </p>
       </div>
+      <Link to="/updateInfo">
+        <button>Update Info</button>
+      </Link>
     </>
   );
 }

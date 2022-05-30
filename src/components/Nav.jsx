@@ -1,3 +1,6 @@
+// ****NOTE****
+// Use redux global state of useinfo to show additional nav items
+
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
@@ -15,62 +18,85 @@ export default function Nav({ handleLoginClick, navs }) {
     currentLink.classList.add("active-link");
   };
 
-  // const handleClick = () => {
-  //   console.log("clicked");
-  //   handleLoginClick();
-  // };
-
   return (
     <nav className="nav flex-container header-element">
-      {/* {navs.map((element) => {
-        return (
+      {sessionStorage.getItem("userInformation") ? (
+        <>
           <Link
-            to={element.link}
+            to="/"
             id="Home-link"
             className="nav-element active-link"
             onClick={addActiveLinkClass}
           >
-            {element.name}
+            Home
           </Link>
-        );
-      })} */}
-      <Link
-        to="/"
-        // href="#Home"
-        id="Home-link"
-        className="nav-element active-link"
-        onClick={addActiveLinkClass}
-      >
-        Home
-      </Link>
-      <a
-        href="#Features"
-        id="Feature-link"
-        className="nav-element"
-        onClick={addActiveLinkClass}
-      >
-        Features
-      </a>
-      <Link
-        to="/explore"
-        // href="#Explore"
-        id="Explore-link"
-        className="nav-element"
-        onClick={addActiveLinkClass}
-      >
-        Explore
-      </Link>
-      <a
-        href="#AboutUs"
-        id="AboutUs-link"
-        className="nav-element"
-        onClick={addActiveLinkClass}
-      >
-        About Us
-      </a>
-      <div id="Login-link" className="nav-element" onClick={handleLoginClick}>
-        Log-In
-      </div>
+          <Link
+            to="/dashboard"
+            // href="#Explore"
+            id="dashboard-link"
+            className="nav-element"
+            onClick={addActiveLinkClass}
+          >
+            Dashboard
+          </Link>
+          <Link
+            to="/logout"
+            // href="#Explore"
+            id="logout-link"
+            className="nav-element"
+            onClick={() => {
+              sessionStorage.clear();
+              window.location.href = "http://localhost:4001";
+            }}
+          >
+            Logout
+          </Link>
+        </>
+      ) : (
+        <>
+          <Link
+            to="/"
+            // href="#Home"
+            id="Home-link"
+            className="nav-element active-link"
+            onClick={addActiveLinkClass}
+          >
+            Home
+          </Link>
+          <a
+            href="#Features"
+            id="Feature-link"
+            className="nav-element"
+            onClick={addActiveLinkClass}
+          >
+            Features
+          </a>
+          <Link
+            to="/explore"
+            // href="#Explore"
+            id="Explore-link"
+            className="nav-element"
+            onClick={addActiveLinkClass}
+          >
+            Explore
+          </Link>
+          <a
+            href="#AboutUs"
+            id="AboutUs-link"
+            className="nav-element"
+            onClick={addActiveLinkClass}
+          >
+            About Us
+          </a>
+          <div
+            id="Login-link"
+            className="nav-element"
+            onClick={handleLoginClick}
+          >
+            Log-In
+          </div>
+        </>
+      )}
     </nav>
   );
 }

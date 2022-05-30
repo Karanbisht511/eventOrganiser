@@ -11,29 +11,29 @@ import PhotoVideoPortalHome from "./photographer/videographer/photo/PhotoVideoHo
 import DecoratorHome from "./decorator/DecoratorHome";
 import Explore from "./explore/Explore";
 import Dashboard from "./dashboard/Dashboard";
-import UserHome from "./userHome/UserHome";
+import UpdateUserInformation from "./dashboard/UpdateUserInformation";
+// import UserHome from "./userHome/UserHome";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function Home() {
   const [isShowLoginForm, setIsShowLoginForm] = useState(true);
   const [isShowSignupForm, setIsShowSignupForm] = useState(true);
-  // const [blurr, setBlurr] = useState(false);
+  // const [reload, setReload] = useState(false);
 
   const handleLoginClick = () => {
     setIsShowLoginForm((isShowLoginForm) => !isShowLoginForm);
-    // if (isShowLoginForm && !blurr) setBlurr(true);
-    // else {
-    //   setBlurr(false);
-    // }
   };
 
   const handleSignupClick = () => {
     setIsShowSignupForm((isShowSignupForm) => !isShowSignupForm);
-    // if (isShowSignupForm && !blurr) setBlurr(true);
-    // else {
-    //   setBlurr(false);
-    // }
   };
+
+  // window.addEventListener("reload", () => {
+  //   sessionStorage.clear();
+  //   // window.location.reload();
+  // });
+
+  console.log(JSON.parse(sessionStorage.getItem("userInformation")));
 
   return (
     <>
@@ -43,8 +43,9 @@ function Home() {
 
           <Routes>
             <Route path="/" element={<HomePart />} />
-            <Route path="/loggedIn/:id" element={<UserHome />} />
-            <Route path="/dashboard/:id" element={<Dashboard />} />
+            {/* <Route path="/loggedIn/:id" element={<UserHome />} /> */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/updateInfo" element={<UpdateUserInformation />} />
             <Route path="/invitationTemplates" element={<InvitationHome />} />
             <Route path="/weddingResorts" element={<WeddingResort />} />
             <Route

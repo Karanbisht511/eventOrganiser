@@ -11,7 +11,7 @@ export default function LoginForm({
   handleSignupClick,
 }) {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState(false);
+  // const [userInfo, setUserInfo] = useState(false);
   const { register, handleSubmit, errors } = useForm();
   // const currentLink = window.location.href;
   const onSubmit = async (data) => {
@@ -24,21 +24,28 @@ export default function LoginForm({
       .then((response) => {
         console.log(response);
         // console.log("response:", response);
+
         return response.data;
       })
       .catch((error) => {
         console.log("error:", error);
       });
+
     console.log("receivedData:", receivedData);
 
-    await setUserInfo(receivedData);
-
-    handleSubmitButton(receivedData);
+    if (receivedData === "login failed") {
+      window.alert("login failed");
+    } else {
+      sessionStorage.setItem("userInformation", JSON.stringify(receivedData));
+      // await setUserInfo(receivedData);
+      handleSubmitButton(receivedData.user_id);
+    }
   };
 
   const handleSubmitButton = (id) => {
     handleLoginClick();
-    navigate(`/loggedIn/${id}`);
+    window.location.reload();
+    // navigate(`/loggedIn/${id}`);
     // console.log("userInfo:", userInfo);
   };
 
@@ -51,7 +58,7 @@ export default function LoginForm({
       <OutsideClickHandler
         onOutsideClick={!isShowLoginForm && handleOutsideClick}
       >
-        <div className=" login-form">
+        <div className="login-form">
           <h1>Login Form</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
