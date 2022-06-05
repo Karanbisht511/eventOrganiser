@@ -8,7 +8,7 @@ export default function UpdateUserInformation() {
   const onSubmit = async (data) => {
     console.log("data:", data);
     const receivedData = await Axios.post(
-      "http://localhost:4000/updateUserInfo",
+      "http://localhost:5000/updateUserInfo",
       { userId, ...data }
     )
       .then((response) => {
@@ -16,7 +16,7 @@ export default function UpdateUserInformation() {
         return response;
       })
       .catch((error) => {
-        console.log("error:", error);
+        console.log("error:", error.message);
       });
   };
   return (

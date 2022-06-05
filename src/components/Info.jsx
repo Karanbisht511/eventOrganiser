@@ -10,7 +10,10 @@ export default function Info() {
         We help you create your wedding invitation cards and plan your wedding
         arrangements.
       </p>
-      <button className="contact-button info-element">contact Us</button>
+      <button className="contact-button info-element">
+        {" "}
+        <a href="#footer">Contact Us</a>{" "}
+      </button>
     </div>
   );
 }

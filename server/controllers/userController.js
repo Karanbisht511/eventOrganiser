@@ -5,6 +5,7 @@ const User = require("../models/user");
 const marriageDetails = require("../models/marriageDetails");
 
 const { ObjectId } = require("mongodb");
+const { hash } = require("bcrypt");
 
 const saltRounds = parseInt(process.env.SALTROUNDS);
 
@@ -66,7 +67,6 @@ exports.signup = async (req, res) => {
     firstName: data.firstName,
     lastName: data.lastName,
     mobile: data.mobile,
-    pincode: data.pincode,
     email: data.email,
     password: hashedPassword,
     user_id: userId,
@@ -88,16 +88,31 @@ exports.signup = async (req, res) => {
     });
 
   //saving new user in marriage details collection
-  const newUserId = new marriageDetails({ user_id: userId });
-  newUserId
+  const newUserId = new marriageDetails({
+    user_id: userId,
+    eventDetails: [],
+    relatives: [],
+    cardDetails: {},
+    invitationTemplate: "",
+    decorator: "",
+    cosmetologist: "",
+    weddingResort: "",
+    photographer: "",
+    videographer: "",
+    travelAgency: "",
+  });
+  const rs = await newUserId
     .save()
     .then((response) => {
+      console.log("marriage document created");
       console.log("marriageDetails db:", response);
+      return response;
     })
     .catch((error) => {
       console.log(error);
     });
 
+  console.log("rs:", rs);
   res.send(responseFromDb);
 };
 
@@ -112,25 +127,29 @@ exports.updateUserInformation = async (req, res) => {
   if (data.pincode) updates.pincode = data.pincode;
   if (data.email) updates.email = data.email;
   if (data.newPassword) {
-    const hashedPassword = await bcrypt
-      .hash(data.password, saltRounds)
+    console.log(data.newPassword);
+    bcrypt
+      .hash(data.newPassword, saltRounds)
       .then((response) => {
-        console.log(response);
-        return response;
+        console.log(hash);
+        updates.password = hash;
+      })
+      .catch((error) => {
+        console.log(error.message);
       });
-    updates.password = hashedPassword;
   }
   console.log(updates);
 
   const match = await User.findOne({ _id: new ObjectId(data.userId) })
     .then((userInfo) => {
+      console.log(userInfo);
       const match = bcrypt.compare(data.currentPassword, userInfo.password);
       return match;
     })
     .catch((error) => {
       console.log(error.message);
     });
-
+  console.log(match);
   if (match) {
     const responseFromDb = await User.updateOne(
       { _id: new ObjectId(data.userId) },
@@ -147,11 +166,4 @@ exports.updateUserInformation = async (req, res) => {
       });
     res.send(responseFromDb);
   } else res.send("Current password is incorrect");
-  // User.updateOne({ _id: new ObjectId(data.userId) }, updates)
-  //   .then((response) => {
-  //     console.log(response);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error.message);
-  //   });
 };

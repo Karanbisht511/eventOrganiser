@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./LoginForm.css";
 import { useForm } from "react-hook-form";
-import OutsideClickHandler from "react-outside-click-handler/build/OutsideClickHandler";
+
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function LoginForm({
-  isShowLoginForm,
-  handleLoginClick,
-  handleSignupClick,
-}) {
+export default function LoginForm() {
   const navigate = useNavigate();
-  // const [userInfo, setUserInfo] = useState(false);
   const { register, handleSubmit, errors } = useForm();
-  // const currentLink = window.location.href;
   const onSubmit = async (data) => {
-    const receivedData = await Axios.get("http://localhost:4000/login", {
+    const receivedData = await Axios.get("http://localhost:5000/login", {
       params: {
         email: data.email,
         password: data.password,
@@ -28,64 +22,83 @@ export default function LoginForm({
         return response.data;
       })
       .catch((error) => {
-        console.log("error:", error);
+        console.log("error:", error.message);
       });
 
     console.log("receivedData:", receivedData);
 
-    if (receivedData === "login failed") {
+    if (!receivedData || receivedData === "login failed") {
       window.alert("login failed");
     } else {
       sessionStorage.setItem("userInformation", JSON.stringify(receivedData));
-      // await setUserInfo(receivedData);
-      handleSubmitButton(receivedData.user_id);
+      addHeaderAndFooter();
+      window.location.assign("http://localhost:4001/");
+      // navigate(`/`);
     }
   };
 
-  const handleSubmitButton = (id) => {
-    handleLoginClick();
-    window.location.reload();
-    // navigate(`/loggedIn/${id}`);
-    // console.log("userInfo:", userInfo);
+  const addHeaderAndFooter = () => {
+    const footer = document.querySelector("#footer");
+    const header = document.querySelector("#header");
+    console.log(footer);
+    console.log(header);
+    if (footer.style.display === "none") footer.style.display = "block";
+    if (header.style.display === "none") header.style.display = "block";
   };
 
-  const handleOutsideClick = () => {
-    handleLoginClick();
+  const removeHeaderAndFooter = () => {
+    const footer = document.querySelector("#footer");
+    const header = document.querySelector("#header");
+    footer.style.display = "none";
+    header.style.display = "none";
   };
+
+  useEffect(removeHeaderAndFooter, []);
 
   return (
-    <div className={`${isShowLoginForm ? "active" : ""} show`}>
-      <OutsideClickHandler
-        onOutsideClick={!isShowLoginForm && handleOutsideClick}
-      >
-        <div className="login-form">
-          <h1>Login Form</h1>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-              type="email"
-              placeholder="E-mail"
-              {...register("email", { required: true })}
-            />
-            <br></br>
-            <input
-              id="password"
-              type="password"
-              placeholder="Password"
-              {...register("password", { required: true, minLength: 8 })}
-            />
-            <br></br>
-            <a href="#">forgot password?</a>
-            <br></br>
+    <div className="login-container">
+      <div className="login-form login-leftPart">
+        <h1>Login To Your Account</h1>
+        {/* <p> Login using social networks</p>
+        <div className="social-media-login">
 
-            {/* <Link to="/dashboard"> */}
-            <input type="submit" value="Login" />
-            {/* </Link> */}
+        </div> */}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            className="login-input-box"
+            type="email"
+            placeholder="E-mail"
+            {...register("email", { required: true })}
+          />
+          <br></br>
+          <input
+            className="login-input-box"
+            id="password"
+            type="password"
+            placeholder="Password"
+            {...register("password", { required: true, minLength: 6 })}
+          />
+          <br></br>
+          <a href="#">forgot password?</a>
+          <br></br>
 
-            <input type="button" value="Signup" onClick={handleSignupClick} />
-          </form>
-        </div>
-      </OutsideClickHandler>
-      {/* {useInfo && window.location.assign(`${currentLink}loggedIn`)} */}
+          <input className="login-signin-button" type="submit" value="Signin" />
+        </form>
+        <Link to="/admin">
+          {" "}
+          <button className="blue generic-button admin-login-button">
+            {" "}
+            Admin portal
+          </button>
+        </Link>
+      </div>
+      <div className="login-rightPart">
+        <h1>New Here?</h1>
+        <h2>Signup here</h2>
+        <Link to="/signup">
+          <input className="login-signin-button" type="button" value="Signup" />
+        </Link>
+      </div>
     </div>
   );
 }

@@ -5,19 +5,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 
-export default function Nav({ handleLoginClick, navs }) {
-  const addActiveLinkClass = (e) => {
-    const nav = document.querySelector(".nav");
-    const links = nav.childNodes;
-    links.forEach((link) => {
-      link.classList.remove("active-link");
-    });
-    // console.log(e.target.id);
-    const id = e.target.id;
-    const currentLink = document.querySelector(`#${id}`);
-    currentLink.classList.add("active-link");
-  };
+export const addActiveLinkClass = (e) => {
+  const nav = document.querySelector(".nav");
+  const links = nav.childNodes;
+  links.forEach((link) => {
+    link.classList.remove("active-link");
+  });
+  // console.log(e.target.id);
+  const id = e.target.id;
+  const currentLink = document.querySelector(`#${id}`);
+  currentLink.classList.add("active-link");
+};
 
+export default function Nav() {
   return (
     <nav className="nav flex-container header-element">
       {sessionStorage.getItem("userInformation") ? (
@@ -63,14 +63,14 @@ export default function Nav({ handleLoginClick, navs }) {
           >
             Home
           </Link>
-          <a
+          {/* <a
             href="#Features"
             id="Feature-link"
             className="nav-element"
             onClick={addActiveLinkClass}
           >
-            Features
-          </a>
+            Explore Features
+          </a> */}
           <Link
             to="/explore"
             // href="#Explore"
@@ -78,23 +78,25 @@ export default function Nav({ handleLoginClick, navs }) {
             className="nav-element"
             onClick={addActiveLinkClass}
           >
-            Explore
+            Explore Features
           </Link>
-          <a
-            href="#AboutUs"
+          <Link
+            to="/aboutUs"
+            // href="#AboutUs"
             id="AboutUs-link"
             className="nav-element"
             onClick={addActiveLinkClass}
           >
             About Us
-          </a>
-          <div
-            id="Login-link"
+          </Link>
+          <Link
+            to="/login"
+            id="login"
             className="nav-element"
-            onClick={handleLoginClick}
+            onClick={addActiveLinkClass}
           >
-            Log-In
-          </div>
+            Login
+          </Link>
         </>
       )}
     </nav>

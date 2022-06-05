@@ -1,6 +1,16 @@
 @media screen and (min-width: 768px) {
 
-.signup-form{
+    
+.signup-leftPart{
+    padding-top: 400px;
+    width: 65vw;
+    height: 100vh;
+    /* max-height: 100vh; */
+    border-right: 2px solid black;
+}
+  
+
+/* .signup-form{
     width:400px;
     height:400px;
     background-color: burlywood;
@@ -14,10 +24,9 @@
 .show{
     width: 100vw;
     height: 100vh;
-    /* background-color: black; */
+    
     display: block;
     transition: 800ms;
-    /* z-index: 1; */
     opacity: 1;
     position: absolute;
     top: 0%;
@@ -25,8 +34,8 @@
 
 .show.active{
     transform: translate(0px) scale(0) rotateY(180deg);
-    opacity: 0;
-}
+    opacity: 0; */
+/* } */
 
 
 }

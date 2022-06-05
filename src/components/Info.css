@@ -34,8 +34,10 @@
 .ring{
     mask-image: linear-gradient(to top left, transparent 28%, black);
     position: absolute;
-    top: 100px;
-    left: 15px;
+    top: 115px;
+left: 16px;
+    /* top: 100px;
+    left: 15px; */
     border-radius: 0px 0px 10px 0px;
     width: 200px;
     height: 200px;

@@ -8,6 +8,7 @@ exports.getAllWeddingResorts = async (req, res) => {
 };
 
 exports.getWeddingResortById = async (req, res) => {
+  console.log("weddingResortId:", req.body);
   console.log("weddingResortId:", req.query.id);
   const weddingResortId = new ObjectId(req.query.id);
   console.log(weddingResortId);

@@ -1,9 +1,14 @@
+import { Outlet } from "react-router";
+import "./Header.css";
 import Nav from "./Nav";
 
-export default function Header({ handleLoginClick }) {
+export default function Header() {
   return (
-    <header className="header">
-      <Nav handleLoginClick={handleLoginClick} />
-    </header>
+    <>
+      <header id="header">
+        <Nav />
+      </header>
+      {/* <Outlet /> */}
+    </>
   );
 }

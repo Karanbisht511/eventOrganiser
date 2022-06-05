@@ -5,3 +5,11 @@
 //            4->AddVideographer,Delete,update,showAll
 //            5->AddDecorators,Delete,update,showAll
 // Footer
+
+export default function AdminHome() {
+  return (
+    <div>
+      <h1>adminpage</h1>
+    </div>
+  );
+}

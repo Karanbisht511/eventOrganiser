@@ -1,19 +1,13 @@
-// import Header from "../Header";
-import Card from "../Card";
+import CardForm from "./CardForm";
+import SetTemplate from "./SetTemplate";
+import "./Invitation.css";
 
 export default function InvitationHome() {
   return (
-    <>
-      {/* <Header /> */}
-      <h1>invitationTemplates</h1>
-      <div className="flex-container">
-        <Card content="1" />
-        <Card content="2" />
-        <Card content="3" />
-        <Card content="4" />
-        <Card content="5" />
-        <Card content="6" />
-      </div>
-    </>
+    <div className="invitation-home-container">
+      <CardForm />
+      {console.log(JSON.parse(sessionStorage.getItem("template")))}
+      <SetTemplate />
+    </div>
   );
 }
